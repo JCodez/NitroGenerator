@@ -19,8 +19,8 @@ public class Utils {
         }
     }
     public static boolean isNew(){
-        if(configFolder.exists()) return true;
-        else return false;
+        if(configFolder.exists()) return false;
+        else return true;
     }
     public static void write(String subpath, String text) throws IOException {
         FileWriter writer = new FileWriter(configPath + separator + subpath);
@@ -28,5 +28,7 @@ public class Utils {
         writer.close();
 
     }
-
+    public static void exit(){
+        System.exit(0);
+    }
 }
