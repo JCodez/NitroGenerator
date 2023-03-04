@@ -1,9 +1,5 @@
 package nitro.generator.Utils;
 
-import com.formdev.flatlaf.FlatDarkLaf;
-import nitro.generator.Gui;
-
-import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,18 +12,7 @@ import static nitro.generator.Utils.Utils.isNew;
 public class Startup {
     static void init() {
         if (isNew()) {
-            FlatDarkLaf.install();
-            String[] themes = {"Darcula", "Dark", "Light"};
-            String theme = (String) JOptionPane.showInputDialog(null, "Select a theme", "Theme", JOptionPane.PLAIN_MESSAGE, null, themes, themes[0]);
-            if (theme != null) {
-                Utils.create();
-                try {
-                    Utils.write("theme.txt", theme);
-                    new Gui();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+           GuiUtils.theme(true);
         }
     }
     public static String theme() {

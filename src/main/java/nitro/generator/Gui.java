@@ -3,6 +3,7 @@ package nitro.generator;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
+import nitro.generator.Utils.GuiUtils;
 
 import javax.swing.*;
 
@@ -13,9 +14,10 @@ import static nitro.generator.Utils.Utils.exit;
 
 public class Gui {
     String selectedTheme = theme();
-
+    public static JFrame gui;
+    private static JLabel info;
     public Gui() {
-        JFrame gui = new JFrame("Nitro generator");
+        gui = new JFrame("Nitro generator");
         switch (selectedTheme) {
             case "Darcula":
                 FlatDarculaLaf.install();
@@ -32,17 +34,21 @@ public class Gui {
         }
         SwingUtilities.updateComponentTreeUI(gui); // tysm StackOverflow <3
 
+        info = new JLabel("To begin, generator > start", SwingConstants.CENTER);
+        Font boldFont = new Font("Arial", Font.BOLD, 20);
+        info.setFont(boldFont);
 
+        gui.add(info, BorderLayout.CENTER);
         gui.setJMenuBar(mainMenuBar());
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gui.setSize(600, 450);
+        gui.setSize(650, 450);
         gui.setVisible(true);
     }
     public static JMenuBar mainMenuBar() {
         JMenuBar tabs = new JMenuBar();
 
         JMenu editMenu = new JMenu("Edit");
-        JMenu generatorMenu = new JMenu("Generator");
+        JMenu generatorMenu = new JMenu("Nitro");
         JMenu windowMenu = new JMenu("Window");
 
         JMenuItem saveItem = new JMenuItem("Save");
@@ -51,10 +57,16 @@ public class Gui {
         editMenu.add(exitItem);
         editMenu.add(saveItem);
 
-        JMenuItem threadsItem = new JMenuItem("Threads"); //todood
+        JMenuItem startItem = new JMenuItem("Start");
+        startItem.addActionListener(e -> begin());
+        JMenuItem threadsItem = new JMenuItem("Threads");
+        threadsItem.addActionListener(e -> GuiUtils.threads());
+        generatorMenu.add(startItem);
         generatorMenu.add(threadsItem);
 
-        JMenuItem themeItem = new JMenuItem("Theme"); //todod
+
+        JMenuItem themeItem = new JMenuItem("Theme");
+        themeItem.addActionListener(e -> GuiUtils.theme(false));
         windowMenu.add(themeItem);
 
         tabs.add(editMenu);
@@ -62,5 +74,14 @@ public class Gui {
         tabs.add(windowMenu);
 
         return tabs;
+    }
+    private static void begin(){
+        info.setVisible(false);
+        gui.add(GuiUtils.generatorGui());
+
+
+
+        gui.revalidate();
+
     }
 }
