@@ -1,19 +1,15 @@
 package nitro.generator;
 
+import nitro.generator.Utils.Startup;
 
-import nitro.generator.Utils.GuiUtils;
+import static nitro.generator.Utils.Utils.isNew;
 
 public class Main {
     public static void main(String[] args) {
-    /*    if(!isNew()){
+        if (!isNew()) {
             new Gui();
-        }
-        else {
+        } else {
             Startup.init();
         }
-    }
-
-     */
-        new Gui();
     }
 }

@@ -10,7 +10,7 @@ import static nitro.generator.Utils.Utils.configPath;
 import static nitro.generator.Utils.Utils.isNew;
 
 public class Startup {
-    static void init() {
+    public static void init() {
         if (isNew()) {
            GuiUtils.theme(true);
         }

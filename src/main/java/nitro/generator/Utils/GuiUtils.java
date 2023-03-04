@@ -10,9 +10,11 @@ import java.util.Random;
 
 import static java.io.File.separator;
 import static nitro.generator.Gui.gui;
+import static nitro.generator.Gui.threadsItem;
 import static nitro.generator.Utils.Utils.configPath;
 
 public class GuiUtils {
+    public static JTextArea codes;
     public static void theme(boolean logic) {
         FlatDarkLaf.install();
         String[] themes = {"Darcula", "Dark", "Light"};
@@ -27,6 +29,8 @@ public class GuiUtils {
                 } else if (!logic) {
                     gui.dispose();
                     new Gui();
+                    gui.revalidate();
+                    gui.repaint();
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -61,7 +65,7 @@ public class GuiUtils {
             values[i] = i;
         }
         JComboBox<Integer> comboBox = new JComboBox<>(values);
-        comboBox.setSelectedItem(10);
+        comboBox.setSelectedItem(threadsValue());
 
         int result = JOptionPane.showOptionDialog(null, comboBox, "Select amount of codes", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
@@ -69,6 +73,7 @@ public class GuiUtils {
             int amount = (int) comboBox.getSelectedItem();
             try {
                 Utils.write("threads.txt", String.valueOf(amount));
+                threadsItem.setText("Threads ["+ (amount) + "]");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -76,11 +81,11 @@ public class GuiUtils {
     }
 
     public static JScrollPane generatorGui() {
-        JTextArea txt = new JTextArea();
-        txt.setFont(new Font("Arial", Font.PLAIN, 15));
-        txt.setLineWrap(true);
-        txt.setWrapStyleWord(true);
-        JScrollPane scrollPane = new JScrollPane(txt);
+        codes = new JTextArea();
+        codes.setFont(new Font("Arial", Font.PLAIN, 15));
+        codes.setLineWrap(true);
+        codes.setWrapStyleWord(true);
+        JScrollPane scrollPane = new JScrollPane(codes);
         scrollPane.setPreferredSize(new Dimension(600, 450));
 
         String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //skidding my old code ??
@@ -95,9 +100,24 @@ public class GuiUtils {
                 char c = characters.charAt(index);
                 sb.append(c);
             }
-            txt.append("discord.gift/" + sb.toString() + "\n");
+            codes.append("discord.gift/" + sb.toString() + "\n");
         }
-
         return scrollPane;
+    }
+    public static void startTimer(JProgressBar progressBar, int duration) {
+        progressBar.setIndeterminate(true);
+        progressBar.setStringPainted(true);
+
+        Font font = new Font("Arial", Font.BOLD, 20);
+        progressBar.setFont(font);
+        JScrollPane scrollPane = generatorGui();
+        progressBar.setString("Loading...");
+        new Timer(duration, e -> {
+            progressBar.setIndeterminate(false);
+            progressBar.setValue(progressBar.getMaximum());
+            progressBar.setVisible(false);
+            gui.add(scrollPane);
+            scrollPane.setVisible(true);
+        }).start();
     }
 }
