@@ -1,5 +1,11 @@
-this is done for educational purposes only !!!!! 
-# nothing skidded except me googling how to create a copy thing everything else is non skidded insane code 
-# To use the application you will need java installed on you pc if you do not have it installed please get IT RN WATCH A TUTORIAL OR SUM
-# anyways its very ez to use just click generate and copy to copy it to u clipboard and paste it in discord its very bad for now but ill update it in the future
-# ok thaktz it baye
+# Nitro generator
+
+**This has been made for educational purposes ONLY !!!**
+
+
+
+![image](https://user-images.githubusercontent.com/106507600/224555591-6532628c-5082-4ddf-9218-57b2c5edb2dd.png)
+![image](https://user-images.githubusercontent.com/106507600/224555606-32a073da-4539-4242-97da-ad078d42c2e3.png)
+![image](https://user-images.githubusercontent.com/106507600/224555618-69dc4ac7-f7fd-4283-97b7-9bcb1c17c581.png)
+
+Very cool java nitro generator application 
